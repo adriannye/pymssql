@@ -60,8 +60,13 @@ from setuptools.command.test import test as TestCommand
 
 LINK_FREETDS_STATICALLY = True
 LINK_OPENSSL = False
+CYTHON_MIN_VERSION = '0.19.1'
 
 ROOT = osp.abspath(osp.dirname(__file__))
+
+install_requires = [
+    'Cython>=%s' % CYTHON_MIN_VERSION 
+]
 
 def fpath(*parts):
     """
@@ -83,7 +88,7 @@ else:
     # Force `setup_requires` stuff like Cython to be installed before proceeding
     #
     from setuptools.dist import Distribution
-    Distribution(dict(setup_requires='Cython>=0.19.1'))
+    Distribution(dict(setup_requires='Cython>=%s' % CYTHON_MIN_VERSION))
 
     try:
         from Cython.Distutils import build_ext as _build_ext
